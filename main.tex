@@ -8,9 +8,14 @@
 \usepackage{polski}
 \usepackage{graphicx}
 \usepackage{amsmath}
+\usepackage{pgfplotstable,filecontents}
+\usepackage{csvsimple}
 \usepackage{tabularx}
+\usepackage{pgfplots}
 \usepackage[polish]{babel}
+
 \begin{document}
+
 
 \maketitle
 
@@ -58,6 +63,9 @@ Jak widać na rysunku Rysunek \ref{fig:zjawisko} kulę zrzucono w dół.
 \section{Wyniki pomiarów}
 Wyniki pomiarów można zobaczyć na tabeli \ref{Tab:pomiary}.
 
+%\pgfplotstabletypeset[
+ %    columns={k1,k4,k2,k3},
+ %   ]{data4.csv}
 
 \begin{table}[hbt!]
 \caption{wyniki pomiarów}
@@ -87,10 +95,51 @@ Lp. & T[s] & S[m] \\
 14 & 0 & 0 \\
 15 & 0 & 0 \\
 
+
+
 \hline
 \end{tabularx}
 \end{center}
 \end{table}
+\begin{filecontents*}{data3.csv}
+\end{filecontents*}
+
+
+
+\begin{center}
+    
+\begin{tikzpicture}[yscale=1.65, xscale=1.65]
+\begin{axis}[
+    title={Spadek swobodny},
+    xlabel={t[s]},
+    ylabel={s[m]},
+    legend pos=north west,
+    ymajorgrids=true,
+    grid style=dashed,
+        enlargelimits=false,
+]
+\addplot [
+    domain=-0.5:10.5, 
+    samples=100, 
+    color=red,
+]
+{9.80665 * x^2 /2};
+\addlegendentry{\(9.80665 * x^2 /2\)}
+\addplot+[
+    only marks,
+    scatter,
+    mark=square,
+    mark size=1.0pt]
+table[meta=k4]
+{data4.csv};
+
+
+\end{axis}
+\end{tikzpicture}
+
+
+\end{center}
+
 
 
 \section{Wnioski}
